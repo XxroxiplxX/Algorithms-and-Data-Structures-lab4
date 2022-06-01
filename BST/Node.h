@@ -17,11 +17,10 @@ public:
     ~Node() {
         free(this);
     }
-    int get_key() const;
+    int get_key() const {
+        return this->key;
+    };
 };
 
-int Node::get_key() const {
-    return this->key;
-}
 
 #endif //BST_NODE_H
