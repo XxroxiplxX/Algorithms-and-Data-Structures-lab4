@@ -2,13 +2,12 @@
 // Created by piotrkali on 6/1/22.
 //
 
+#include <algorithm>
 #include "BST.h"
 
 BST::BST(int key) : root(new Node(key)){}
 
-BST::~BST() {
-
-}
+BST::~BST() = default;
 
 void BST::insert(int key) {
     Node *z = new Node(key);
@@ -33,11 +32,44 @@ void BST::insert(int key) {
 }
 
 void BST::delete_node(int key) {
+    Node *z = this->search(key);
+    Node *y, *x;
+    if (z->left == nullptr or z->right == nullptr) {
+        y = z;
+    } else {
+        y = successor(z);
+    }
+    if (y->left != nullptr) {
+        x = y->left;
+    } else {
+        x = y->right;
+    }
+    if (x != nullptr) {
+        x->parent = y->parent;
+    }
+    if (y->parent == nullptr) {
+        this->root = x;
+    } else if (y == y->parent->left) {
+        y->parent->left = x;
+    } else {
+        y->parent->right = x;
+    }
+    if (y != z) {
+        z->change_key(y->get_key());
+    }
 
+    //delete x;
+    //delete y;
+    //delete z;
 }
 
-int BST::height() {
-    return 0;
+int BST::height(Node *x) {
+    if (x == nullptr) {
+        return 0;
+    }
+    int left_hegith = height(x->left);
+    int right_height = height(x->right);
+    return std::max(left_hegith, right_height) + 1;
 }
 
 Node *BST::search(int key) const {
@@ -66,7 +98,7 @@ Node *BST::maximum(Node *x) {
     return x;
 }
 
-Node *BST::succressor(Node *x) {
+Node *BST::successor(Node *x) {
     if (x->right != nullptr) {
         return minimum(x->right);
     }

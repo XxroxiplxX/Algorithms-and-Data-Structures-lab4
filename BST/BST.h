@@ -13,11 +13,11 @@ class BST {
     ~BST();
     void insert(int key);
     void delete_node(int key);
-    int height();
+    static int height(Node *x);
     Node *search(int key) const;
     static Node *minimum(Node *x);
     static Node *maximum(Node *x);
-    static Node *succressor(Node *x);
+    static Node *successor(Node *x);
 };
 
 

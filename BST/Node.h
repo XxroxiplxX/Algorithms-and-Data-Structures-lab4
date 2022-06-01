@@ -15,11 +15,14 @@ public:
     Node *right;
     explicit Node(int key) : key(key), parent(nullptr), left(nullptr), right(nullptr){};
     ~Node() {
-        free(this);
+        //free(this);
     }
     int get_key() const {
         return this->key;
     };
+    int change_key(int key) {
+        this->key = key;
+    }
 };
 
 

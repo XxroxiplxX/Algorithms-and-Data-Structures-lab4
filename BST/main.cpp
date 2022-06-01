@@ -48,5 +48,15 @@ int main() {
         left_trace[i]=' ';
     }
     print_BST(bst.root, 0, '-');
+
+    bst.delete_node(12);
+    bst.delete_node(9);
+    bst.delete_node(7);
+    bst.delete_node(8);
+    bst.delete_node(11);
+    bst.delete_node(10);
+    cout << endl;
+    print_BST(bst.root, 0, '-');
+
     return 0;
 }
