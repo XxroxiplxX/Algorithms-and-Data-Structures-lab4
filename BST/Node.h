@@ -9,10 +9,10 @@
 
 class Node {
     int key;
-    Node * parent;
-    Node * left;
-    Node * right;
 public:
+    Node *parent;
+    Node *left;
+    Node *right;
     explicit Node(int key) : key(key), parent(nullptr), left(nullptr), right(nullptr){};
     ~Node() {
         free(this);
