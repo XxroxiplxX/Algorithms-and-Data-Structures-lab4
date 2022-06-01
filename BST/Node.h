@@ -4,13 +4,19 @@
 
 #ifndef BST_NODE_H
 #define BST_NODE_H
+
+#include <cstdlib>
+
 class Node {
     int key;
     Node * parent;
     Node * left;
     Node * right;
 public:
-    Node(int key) : key(key), parent(nullptr), left(nullptr), right(nullptr){};
+    explicit Node(int key) : key(key), parent(nullptr), left(nullptr), right(nullptr){};
+    ~Node() {
+        free(this);
+    }
     int get_key() const;
 };
 
