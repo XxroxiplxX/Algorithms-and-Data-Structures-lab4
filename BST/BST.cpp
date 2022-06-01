@@ -3,11 +3,15 @@
 //
 
 #include <algorithm>
+#include <iostream>
 #include "BST.h"
 
 BST::BST(int key) : root(new Node(key)){}
 
-BST::~BST() = default;
+BST::~BST() {
+    this->root = clean(root);
+    std::cout << "Usunieto drzewo" << std::endl;
+}
 
 void BST::insert(int key) {
     Node *z = new Node(key);
@@ -109,4 +113,14 @@ Node *BST::successor(Node *x) {
     }
 
     return y;
+}
+
+Node *BST::clean(Node *x) {
+    if (x == nullptr) {
+        return nullptr;
+    }
+    clean(x->left);
+    clean(x->right);
+    delete x;
+    return nullptr;
 }

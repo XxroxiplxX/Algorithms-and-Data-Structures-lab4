@@ -18,6 +18,7 @@ class BST {
     static Node *minimum(Node *x);
     static Node *maximum(Node *x);
     static Node *successor(Node *x);
+    static Node *clean(Node *x);
 };
 
 
