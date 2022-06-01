@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include "Node.h"
 #include "BST.h"
 
@@ -34,29 +35,54 @@ void print_BST(Node *root, int depth,char prefix){
 
 
 int main() {
-    BST bst = BST(10);
-    bst.insert(8);
-    bst.insert(12);
-    bst.insert(9);
-    bst.insert(11);
-    bst.insert(7);
-    int size = 6;
+    int size = 50;
     left_trace= new char[size];
     right_trace= new char[size];
     for(int i=0; i<=size; i++){
         left_trace[i]=' ';
         left_trace[i]=' ';
     }
-    print_BST(bst.root, 0, '-');
+    BST bst = BST(0);
+    int n = 50;
+    srand(time(nullptr));
+    cout << "Wstawianie rosnacego ciagu: " << endl;
+    cout << "Inicjuje drzewo o korzeniu: 0" << endl;
+    std::mt19937 generator(rand());
+    std::uniform_int_distribution<int> dis(0, 6);
+    std::uniform_int_distribution<int> indexes(0, 49);
 
-    bst.delete_node(12);
-    bst.delete_node(9);
-    bst.delete_node(7);
-    bst.delete_node(8);
-    bst.delete_node(11);
-    bst.delete_node(10);
+    int c = 0;
+    int c2 = 1;
+    int keys[n];
+    while (c < n) {
+        int tmp = dis(generator);
+        if (tmp == 3) {
+            cout << "insert " << c2 << endl;
+            bst.insert(c2);
+            keys[c] = c2;
+            cout << "Stan drzewa po operacji: " << endl;
+            print_BST(bst.root, 0, '-');
+            c++;
+        }
+        c2++;
+    }
     cout << endl;
-    print_BST(bst.root, 0, '-');
+    cout << "Usuwam losowo ciag kluczy z drzewa: " << endl;
+    c = 0;
+    while (c < n) {
+        int tmp = indexes(generator);
+        if (keys[tmp] != -1) {
+            cout << "delete " << keys[tmp] << endl;
+            bst.delete_node(keys[tmp]);
+            cout << "Stan drzewa po operacji: " << endl;
+            print_BST(bst.root, 0, '-');
+            keys[tmp] = -1;
+            c++;
+        }
+    }
+
+
+
 
     return 0;
 }
