@@ -50,16 +50,18 @@ int main() {
     std::mt19937 generator(rand());
     std::uniform_int_distribution<int> dis(0, 6);
     std::uniform_int_distribution<int> indexes(0, 49);
+    std::uniform_int_distribution<int> goodkeys(0, 2*n - 1);
 
     int c = 0;
     int c2 = 1;
     int keys[n];
-    while (c < n) {
+    keys[0] = 0;
+    while (c < n - 1) {
         int tmp = dis(generator);
         if (tmp == 3) {
             cout << "insert " << c2 << endl;
             bst.insert(c2);
-            keys[c] = c2;
+            keys[c + 1] = c2;
             cout << "Stan drzewa po operacji: " << endl;
             print_BST(bst.root, 0, '-');
             c++;
@@ -80,6 +82,35 @@ int main() {
             c++;
         }
     }
+
+    cout << "Inicjuje drzewo o korzeniu: 30" << endl;
+    BST bst2 = BST(30);
+    keys[0] = 30;
+    c = 0;
+    while (c < n - 1) {
+        int tmp = goodkeys(generator);
+        cout << "insert " << tmp << endl;
+        bst2.insert(tmp);
+        keys[c + 1] = tmp;
+        print_BST(bst2.root, 0, '-');
+        c++;
+    }
+
+    cout << endl;
+    cout << "Usuwam losowo ciag kluczy z drzewa: " << endl;
+    c = 0;
+    while (c < n) {
+        int tmp = indexes(generator);
+        if (keys[tmp] != -1) {
+            cout << "delete " << keys[tmp] << endl;
+            bst2.delete_node(keys[tmp]);
+            cout << "Stan drzewa po operacji: " << endl;
+            print_BST(bst2.root, 0, '-');
+            keys[tmp] = -1;
+            c++;
+        }
+    }
+
 
 
 
