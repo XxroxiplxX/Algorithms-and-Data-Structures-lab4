@@ -6,12 +6,13 @@
 #define RBT_NODE_H
 class Node {
     int key;
-    char color;
+
 public:
+    char color;
     Node *parent;
     Node *left;
     Node *right;
-    explicit Node(int key) : key(key), parent(nullptr), left(nullptr), right(nullptr), color('b') {};
+    explicit Node(int key) : key(key), parent(nullptr), left(nullptr), right(nullptr), color('B') {};
     ~Node();
     char get_color() const {
         return color;

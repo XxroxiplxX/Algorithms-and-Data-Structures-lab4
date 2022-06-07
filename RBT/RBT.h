@@ -10,11 +10,12 @@ class RBT {
 public:
     explicit RBT(int key) : root(new Node(key)) {};
     ~RBT();
-    Node * root;
+    Node *root;
     void insert(int key);
     Node *search(int key);
-    void left_roate(Node *x);
+    void left_rotate(Node *x);
     void right_rotate(Node *x);
+private:
     void insert_fixup(Node *node);
 };
 
