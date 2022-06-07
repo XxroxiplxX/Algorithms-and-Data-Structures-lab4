@@ -7,6 +7,8 @@
 #include "Node.h"
 
 class BST {
+    long comparisons;
+    long read_and_displacements;
 public:
     Node *root;
     explicit BST(int key);
@@ -14,11 +16,14 @@ public:
     void insert(int key);
     void delete_node(int key);
     static int height(Node *x);
-    Node *search(int key) const;
-    static Node *minimum(Node *x);
-    static Node *maximum(Node *x);
-    static Node *successor(Node *x);
+    Node * search(int key);
+    Node *minimum(Node *x);
+    Node *maximum(Node *x);
+    Node *successor(Node *x);
     static Node *clean(Node *x);
+    int get_comparisons();
+    int get_read_and_displacements();
+    void reset_stats();
 };
 
 
