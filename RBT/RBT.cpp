@@ -4,6 +4,9 @@
 
 #include "RBT.h"
 
+static Node *nil = nullptr;
+
+
 void RBT::insert(int key) {
     Node *z = new Node(key);
     z->change_color('r');
@@ -81,7 +84,7 @@ void RBT::insert_fixup(Node *k) {
     while (k->parent->get_color() == 'r') {
         if (k->parent == k->parent->parent->left) {
             u = k->parent->parent->right;
-            if (u != nullptr and u->get_color() == 'r') {
+            if (check_color(u) == 'r') {
                 u->change_color('b');
                 k->parent->change_color('b');
                 k->parent->parent->change_color('r');
@@ -97,7 +100,7 @@ void RBT::insert_fixup(Node *k) {
             }
         } else if (k->parent == k->parent->parent->right) {
             u = k->parent->parent->left;
-            if (u != nullptr and u->get_color() == 'r') {
+            if (check_color(u) == 'r') {
                 u->change_color('b');
                 k->parent->change_color('b');
                 k->parent->parent->change_color('r');
@@ -124,3 +127,38 @@ void RBT::insert_fixup(Node *k) {
 RBT::~RBT() {
 
 }
+
+void RBT::dellete_fixup(Node *x) {
+    Node *w = nullptr;
+    while (x != root and x->get_color() == 'b') {
+        if (x == x->parent->left) {
+            w = x->parent->right;
+            if (w != nullptr and w->get_color() == 'r') {
+                w->change_color('b');
+                x->parent->change_color('r');
+                left_rotate(x->parent);
+                w = x->parent->right;
+            }
+            if (w->left != nullptr and w->right != nullptr and w->left->get_color() == 'b' and w->right->get_color() == 'b') {
+                w->change_color('r');
+                x = x->parent;
+            } else if (w->right == nullptr or w->right->get_color() == 'b') {
+                w->left->change_color('r');
+                w->change_color('r');
+            }
+        }
+    }
+}
+
+RBT::RBT(int key) {
+    root = new Node(key);
+}
+
+
+char RBT::check_color(Node *x) {
+    if (x == nullptr) {
+        return 'b';
+    } else return x->get_color();
+}
+
+

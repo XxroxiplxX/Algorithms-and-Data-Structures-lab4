@@ -6,9 +6,10 @@
 #define RBT_RBT_H
 
 #include "Node.h"
+#include "stdlib.h"
 class RBT {
 public:
-    explicit RBT(int key) : root(new Node(key)) {};
+    explicit RBT(int key);
     ~RBT();
     Node *root;
     void insert(int key);
@@ -17,6 +18,8 @@ public:
     void right_rotate(Node *x);
 private:
     void insert_fixup(Node *node);
+    void dellete_fixup(Node *node);
+    static char check_color(Node *x);
 };
 
 
