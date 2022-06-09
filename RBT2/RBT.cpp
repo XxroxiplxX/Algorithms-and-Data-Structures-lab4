@@ -235,7 +235,7 @@ RBT::RBT() {
 }
 
 void RBT::insert(int key) {
-    Node_t node = new Node;
+    auto node = new Node;
     node->parent = nullptr;
     node->key = key;
     node->left = nil;
